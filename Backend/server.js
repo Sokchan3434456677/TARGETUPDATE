@@ -6,7 +6,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const axios = require('axios'); // For HTTP requests
 
 const app = express();
-const IP_ADDRESS = '3.91.213.253';
+const IP_ADDRESS = '35.173.124.16';
 const PORT = 7000;
 
 // Telegram Bot Token
@@ -15,18 +15,16 @@ const bot = new TelegramBot(TELEGRAM_BOT_TOKEN, { polling: true });
 
 // Middleware
 app.use(cors({
-  origin: 'http://3.91.213.253:3000', // Replace with your frontend's IP and port
+  origin: 'http://35.173.124.16:3000', // Replace with your frontend's IP and port
   credentials: true,
 }));
 app.use(bodyParser.json({ limit: '10mb' }));
 
-// Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/invoiceDB', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((err) => console.error('Failed to connect to MongoDB:', err));
+// Connect to MongoDB Atlas
+const MONGODB_URI = 'mongodb+srv://sokchanear0:2NtjcG3hRPMTrYCz@cluster0.1nfjw.mongodb.net/chat_db?retryWrites=true&w=majority&appName=Cluster0';
+mongoose.connect(MONGODB_URI)
+  .then(() => console.log('Connected to MongoDB Atlas'))
+  .catch((err) => console.error('Failed to connect to MongoDB Atlas:', err));
 
 // Define Invoice Schema
 const invoiceSchema = new mongoose.Schema({
